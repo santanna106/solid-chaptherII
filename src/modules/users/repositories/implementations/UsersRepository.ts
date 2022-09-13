@@ -19,11 +19,14 @@ class UsersRepository implements IUsersRepository {
   }
 
   create({ name, email }: ICreateUserDTO): User {
-    const newUser: User = {
+    const newUser = new User();
+    const created_date = new Date();
+    Object.assign(newUser, {
       name,
       email,
-      created_at: new Date(),
-    };
+      admin: false,
+      created_at: created_date,
+    });
 
     this.users.push(newUser);
 
@@ -41,7 +44,10 @@ class UsersRepository implements IUsersRepository {
   }
 
   turnAdmin(receivedUser: User): User {
-    // Complete aqui
+    const user = this.users.find((user) => user.email === receivedUser.email);
+    user.admin = true;
+
+    return user;
   }
 
   list(): User[] {
