@@ -8,9 +8,20 @@ class CreateUserController {
   handle(request: Request, response: Response): Response {
     const { name, email } = request.body;
 
-    this.createUserUseCase.execute({ name, email });
+    if (!email || email === "") {
+      return response.status(400).json({ error: "Invalid Email!" });
+    }
 
-    return response.status(201).send();
+    if (!name || name === "") {
+      return response.status(400).json({ error: "Invalid Name!" });
+    }
+
+    const user = this.createUserUseCase.execute({ name, email });
+
+    if (user) {
+      return response.status(201).json(user);
+    }
+    return response.status(400).json({ error: "Invalid Name!" });
   }
 }
 
