@@ -1,0 +1,79 @@
+{
+    "openapi":"3.0.0",
+    "info": {
+        "title":"Atlas",
+        "description":"Essa é uma documentação sobre Atlas api",
+        "version":"1.0.0",
+        "contact":{
+            "email":"gabriel.santana@gmail.com"
+        }
+    },
+    "paths":{
+        "/users":{
+            
+            "post":{
+                "tags":["Users"],
+                "summary": "Criar um usuário",
+                "description": "Criar um usuário",
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type": "object",
+                                "properties":{
+                                    "name":{
+                                        "type":"string"
+                                    },
+                                    "email":{
+                                        "type":"string"
+                                    }
+                                },
+                                "example": {
+                                    "name":"Nome do usuário",
+                                    "email":"teste@gmail.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201":{
+                        "description": "Created"
+                    },
+                    "500":{
+                        "description":"Category already exists"
+                    }
+                }
+            },
+            "get":{
+                "tags":["Users"],
+                "summary":"Lista todos os usuários",
+                "description": "Lista todos os usuários",
+                "responses":{
+                    "200":{
+                        "description":"Success",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"array",
+                                    "items":{
+                                        "type":"object",
+                                        "properties":{
+                                            "name":{
+                                                "type":"string"
+                                            },
+                                            "email":{
+                                                "type":"string"
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
