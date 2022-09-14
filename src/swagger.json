@@ -8,11 +8,19 @@
             "email":"gabriel.santana@gmail.com"
         }
     },
+
+    "tags": [
+        {
+          "name": "Users",
+          "description": "gerenciamento de usuários"
+          
+        }
+      ],
     "paths":{
         "/users":{
             
             "post":{
-                "tags":["Users gerenciamento de usuários"],
+                "tags":["Users"],
                 "summary": "Criar um usuário",
                 "description": "Criar um usuário",
                 "requestBody":{
@@ -34,10 +42,12 @@
                                         "type":"boolean"
                                     },
                                     "created_at":{
-                                        "type":"Date"
+                                        "type": "string",
+                                        "format": "date-time"
                                     },
                                     "updated_at":{
-                                        "type":"Date"
+                                        "type": "string",
+                                        "format": "date-time"
                                     }
                                 },
                                 "example": {
@@ -62,7 +72,7 @@
                 }
             },
             "get":{
-                "tags":["Users gerenciamento de usuários"],
+                "tags":["Users"],
                 "summary":"Lista todos os usuários",
                 "description": "Lista todos os usuários",
                 "responses":{
@@ -88,10 +98,124 @@
                                                 "type":"boolean"
                                             },
                                             "created_at":{
-                                                "type":"Date"
+                                                "type": "string",
+                                                "format": "date-time"
                                             },
                                             "updated_at":{
-                                                "type":"Date"
+                                                "type": "string",
+                                                "format": "date-time"
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{user_id}":{
+            "get":{
+                "tags":["Users"],
+                "summary":"Retorna um usuário específico",
+                "description": "Retorna um usuário específico",
+                "parameters": [
+                    {
+                      "name": "user_id",
+                      "in": "path",
+                      "description": "Campo obrigatório para recuperar um usuário. ",
+                      "required": true,
+                      "schema": {
+                        "type": "string"
+                      }
+                    }
+                  ],
+                "responses":{
+                    "200":{
+                        "description":"Success",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"array",
+                                    "items":{
+                                        "type":"object",
+                                        "properties":{
+                                            "id":{
+                                                "type":"string" 
+                                            },
+                                            "name":{
+                                                "type":"string"
+                                            },
+                                            "email":{
+                                                "type":"string"
+                                            },
+                                            "admin":{
+                                                "type":"boolean"
+                                            },
+                                            "created_at":{
+                                                "type": "string",
+                                                "format": "date-time"
+                                            },
+                                            "updated_at":{
+                                                "type": "string",
+                                                "format": "date-time"
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{user_id}/admin":{
+            "patch":{
+                "tags":["Users"],
+                "summary":"Torna admin um usuário",
+                "description": "Torna admin um usuário",
+                "parameters": [
+                    {
+                      "name": "user_id",
+                      "in": "path",
+                      "description": "Campo obrigatório para encontrar o usuário que se tornará admin. ",
+                      "required": true,
+                      "schema": {
+                        "type": "string"
+                      }
+                    }
+                  ],
+                "responses":{
+                    "200":{
+                        "description":"Success",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"array",
+                                    "items":{
+                                        "type":"object",
+                                        "properties":{
+                                            "id":{
+                                                "type":"string" 
+                                            },
+                                            "name":{
+                                                "type":"string"
+                                            },
+                                            "email":{
+                                                "type":"string"
+                                            },
+                                            "admin":{
+                                                "type":"boolean"
+                                            },
+                                            "created_at":{
+                                                "type": "string",
+                                                "format": "date-time"
+                                            },
+                                            "updated_at":{
+                                                "type": "string",
+                                                "format": "date-time"
                                             }
                                         }
                                     }
@@ -103,5 +227,6 @@
                 }
             }
         }
+
     }
 }
