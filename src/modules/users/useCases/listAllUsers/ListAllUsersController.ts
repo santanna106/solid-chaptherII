@@ -6,11 +6,21 @@ class ListAllUsersController {
   constructor(private listAllUsersUseCase: ListAllUsersUseCase) {}
 
   handle(request: Request, response: Response): Response {
-    const { user_id } = request.params;
+    const user_id  = request.headers["user_id"] as string;
 
-    const allUsers = this.listAllUsersUseCase.execute({ user_id });
+    console.log('HEADER_user_id')
 
-    return response.json(allUsers);
+    try{
+      const allUsers = this.listAllUsersUseCase.execute({ user_id });
+      if(allUsers){
+        return response.json(allUsers);
+      }
+    } catch (error){
+      return response.status(404).json({error:"Error forbidden"});
+    }
+    
+
+   
   }
 }
 

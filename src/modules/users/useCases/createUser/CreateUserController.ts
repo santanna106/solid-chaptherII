@@ -15,13 +15,19 @@ class CreateUserController {
     if (!name || name === "") {
       return response.status(400).json({ error: "Invalid Name!" });
     }
-
-    const user = this.createUserUseCase.execute({ name, email });
-
-    if (user) {
-      return response.status(201).json(user);
+   
+    try{
+      const user = this.createUserUseCase.execute({ name, email });
+      if (user) {
+        return response.status(201).json(user);
+      }
+    } catch(error){
+      return response.status(400).json({ error: "User already in use" });
     }
-    return response.status(400).json({ error: "Invalid Name!" });
+  
+
+  
+   
   }
 }
 
