@@ -8,10 +8,11 @@ class TurnUserAdminController {
   handle(request: Request, response: Response): Response {
     const { user_id } = request.params;
 
-    console.log('PAsso')
+    
     try{
       const user = this.turnUserAdminUseCase.execute({ user_id });
       if(user){
+        //request.user = user;
         return response.json(user);
       }
       
@@ -19,7 +20,7 @@ class TurnUserAdminController {
       return response.status(404).json({ error: "User not found" });
     }
     
-
+    
     
   }
 }
